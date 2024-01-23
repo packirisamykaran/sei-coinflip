@@ -1,0 +1,10 @@
+[package]
+name = "coinflip"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+cosmwasm-std = "0.14"
+cosmwasm-storage = "0.14"
+serde = { version = "1.0", features = ["derive"] }

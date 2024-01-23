@@ -2,7 +2,8 @@ use crate::error::ContractError;
 use crate::msg::{AdminsListResp, ExecuteMsg, GreetResp, InstantiateMsg, QueryMsg};
 use crate::state::{ADMINS, DONATION_DENOM};
 use cosmwasm_std::{
-    coins, to_binary, BankMsg, Binary, Deps, DepsMut, Env, Event, MessageInfo, Response, StdResult,
+    coins, to_json_binary, BankMsg, Binary, Deps, DepsMut, Env, Event, MessageInfo, Response,
+    StdError, StdResult,
 };
 
 pub fn instantiate(
@@ -26,8 +27,8 @@ pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     use QueryMsg::*;
 
     match msg {
-        Greet {} => to_binary(&query::greet()?),
-        AdminsList {} => to_binary(&query::admins_list(deps)?),
+        Greet {} => to_json_binary(&query::greet()?),
+        AdminsList {} => to_json_binary(&query::admins_list(deps)?),
     }
 }
 

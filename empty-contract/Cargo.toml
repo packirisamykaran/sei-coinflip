@@ -17,6 +17,8 @@ thiserror = "1"
 schemars = "0.8.1"
 cw-utils = "0.13"
 cosmwasm-schema = "1.1.4"
+[dependencies]
+my_contract = { version = "0.1", features = ["library"] }
 
 [dev-dependencies]
 cw-multi-test = "0.13.4"
