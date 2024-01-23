@@ -1,4 +1,5 @@
 use cosmwasm_schema::{cw_serde, QueryResponses};
+use cosmwasm_std::Addr;
 
 #[cw_serde]
 pub struct InstantiateMsg {}
@@ -15,5 +16,5 @@ pub enum QueryMsg {
 
 #[cw_serde]
 pub struct GetOwnerResponse {
-    pub owner: String,
+    pub owner: Addr,
 }
