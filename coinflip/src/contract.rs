@@ -1,15 +1,38 @@
-use cosmwasm_std::{BankMsg, Binary, Coin, Deps, DepsMut, Env, MessageInfo, Response, StdResult};
+use crate::error::ContractError;
+use crate::msg::{ExecuteMsg, FlipResp, InstantiateMsg, OwnerResp, PlayerWinningsResp, QueryMsg};
+use crate::state::{OWNER, PLAYER_WINNINGS};
+use cosmwasm_std::{
+    to_json_binary, BankMsg, Binary, Coin, Deps, DepsMut, Env, MessageInfo, Response, StdResult,
+};
+use cw_storage_plus::Item;
+use std::collections::HashMap;
 
-// Claim function which is called by the player who won the coinflip, anyone can call this function can all the sei to themself
+pub fn instantiate(
+    deps: DepsMut,
+    _env: Env,
+    info: MessageInfo,
+    _msg: InstantiateMsg,
+) -> StdResult<Response> {
+    OWNER.save(deps.storage, &info.sender)?;
+    PLAYER_WINNINGS.save(deps.storage, &HashMap::new())?;
+    Ok(Response::new().add_attribute("method", "instantiate"))
+}
 
-#[cfg_attr(not(feature = "library"), entry_point)]
 pub fn execute(
     deps: DepsMut,
     env: Env,
     info: MessageInfo,
     msg: ExecuteMsg,
 ) -> Result<Response, ContractError> {
+    // Currently, no execution functionality is implemented.
+    Err(ContractError::Unauthorized {})
+}
+
+pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
-        ExecuteMsg::Claim {} => try_claim(deps, env, info),
+        QueryMsg::Owner {} => {
+            let owner = OWNER.load(deps.storage)?;
+            to_json_binary(&OwnerResp { owner })
+        }
     }
 }
