@@ -1,0 +1,105 @@
+{
+  "height": "29444",
+  "txhash": "9A789FFC3CA1ACEB0C8722FD2FE5A335867C57F0447956002C0F3DB1BCD0A6BE",
+  "codespace": "",
+  "code": 0,
+  "data": "0A240A1E2F636F736D7761736D2E7761736D2E76312E4D736753746F7265436F646512020811",
+  "raw_log": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"/cosmwasm.wasm.v1.MsgStoreCode\"},{\"key\":\"module\",\"value\":\"wasm\"},{\"key\":\"sender\",\"value\":\"sei1529r93wfs7j5erfvxqhvzpae35xnse9qz29hz0\"}]},{\"type\":\"store_code\",\"attributes\":[{\"key\":\"code_id\",\"value\":\"17\"}]}]}]",
+  "logs": [
+    {
+      "msg_index": 0,
+      "log": "",
+      "events": [
+        {
+          "type": "message",
+          "attributes": [
+            { "key": "action", "value": "/cosmwasm.wasm.v1.MsgStoreCode" },
+            { "key": "module", "value": "wasm" },
+            {
+              "key": "sender",
+              "value": "sei1529r93wfs7j5erfvxqhvzpae35xnse9qz29hz0"
+            }
+          ]
+        },
+        {
+          "type": "store_code",
+          "attributes": [{ "key": "code_id", "value": "17" }]
+        }
+      ]
+    }
+  ],
+  "info": "",
+  "gas_wanted": "11000000",
+  "gas_used": "10971549",
+  "tx": null,
+  "timestamp": "",
+  "events": [
+    {
+      "type": "coin_spent",
+      "attributes": [
+        {
+          "key": "c3BlbmRlcg==",
+          "value": "c2VpMTUyOXI5M3dmczdqNWVyZnZ4cWh2enBhZTM1eG5zZTlxejI5aHow",
+          "index": true
+        },
+        { "key": "YW1vdW50", "value": "MTEwMDAwMHVzZWk=", "index": true }
+      ]
+    },
+    {
+      "type": "tx",
+      "attributes": [
+        { "key": "ZmVl", "value": "MTEwMDAwMHVzZWk=", "index": true },
+        {
+          "key": "ZmVlX3BheWVy",
+          "value": "c2VpMTUyOXI5M3dmczdqNWVyZnZ4cWh2enBhZTM1eG5zZTlxejI5aHow",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "tx",
+      "attributes": [
+        {
+          "key": "YWNjX3NlcQ==",
+          "value": "c2VpMTUyOXI5M3dmczdqNWVyZnZ4cWh2enBhZTM1eG5zZTlxejI5aHowLzQ5",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "tx",
+      "attributes": [
+        {
+          "key": "c2lnbmF0dXJl",
+          "value": "VVFKdGg2SmFiUnNTWW9tZVlyTk1hWkxrb3IvNmhNeitsTTNQVXNMNEw3SUE3N3IxM1NTSDJMOUx6OURGUGFJcHNtaU44eVVQb1B3WUR2OHRFTVl1eVE9PQ==",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "message",
+      "attributes": [
+        {
+          "key": "YWN0aW9u",
+          "value": "L2Nvc213YXNtLndhc20udjEuTXNnU3RvcmVDb2Rl",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "message",
+      "attributes": [
+        { "key": "bW9kdWxl", "value": "d2FzbQ==", "index": true },
+        {
+          "key": "c2VuZGVy",
+          "value": "c2VpMTUyOXI5M3dmczdqNWVyZnZ4cWh2enBhZTM1eG5zZTlxejI5aHow",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "store_code",
+      "attributes": [{ "key": "Y29kZV9pZA==", "value": "MTc=", "index": true }]
+    }
+  ]
+}

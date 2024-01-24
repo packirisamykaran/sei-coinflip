@@ -1,1 +1,0 @@
-Coin flip smart contract

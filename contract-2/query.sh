@@ -1,0 +1,1 @@
+seid query wasm contract-state smart sei182spk8y52xxk5ujfad8z4wvwnlg4v9texuk476s4wgf7553wd8esurfe0p '{"get_owner":{}}' --node tcp://127.0.0.1:26657 --chain-id sei-chain
