@@ -5,7 +5,9 @@ use cosmwasm_std::Addr;
 pub struct InstantiateMsg {}
 
 #[cw_serde]
-pub enum ExecuteMsg {}
+pub enum ExecuteMsg {
+    FlipCoin {},
+}
 
 #[cw_serde]
 #[derive(QueryResponses)]

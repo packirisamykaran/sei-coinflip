@@ -13,3 +13,6 @@ cosmwasm-std = "1.1"
 cw-storage-plus = "1.1.0"
 cosmwasm-schema = "1.0.0"
 thiserror = { version = "1.0.49" }
+
+
+
