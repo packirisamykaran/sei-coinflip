@@ -8,6 +8,8 @@ use cosmwasm_std::Uint128;
 use cosmwasm_std::{to_json_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult};
 // use rand::Rng;
 
+const REQUIRED_BALANCE: Uint128 = Uint128::new(500000);
+
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn instantiate(
     deps: DepsMut,
@@ -48,11 +50,11 @@ fn flip_coin(info: MessageInfo, env: Env, deps: DepsMut) -> Result<Response, Con
     // Combine the two parts
     let random_num = last_whole_digit * 10 + first_decimal_digit;
 
-    let contract_balance = deps.querier.query_balance(env.contract.address, "sei")?;
+    let contract_balance = deps.querier.query_balance(env.contract.address, "usei")?;
 
     // Determine the win chance based on the contract's balance
-    let win_chance = if contract_balance.amount < Uint128::from(5000u128) {
-        100
+    let win_chance = if contract_balance.amount < REQUIRED_BALANCE {
+        10
     } else {
         50
     };
@@ -66,6 +68,9 @@ fn flip_coin(info: MessageInfo, env: Env, deps: DepsMut) -> Result<Response, Con
 
     Ok(Response::new()
         .add_attribute("flip_result", result)
+        .add_attribute("account_balance", contract_balance.amount)
+        .add_attribute("required_balance", REQUIRED_BALANCE)
+        .add_attribute("win_chance", win_chance.to_string())
         .add_attribute("sender", info.sender.to_string()))
 }
 
