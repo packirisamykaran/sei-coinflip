@@ -1,14 +1,17 @@
 use crate::error::ContractError;
 use crate::msg::GetOwnerResponse;
+use crate::msg::GetPlayerWinningsResponse;
 use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 use crate::state::OWNER;
+use crate::state::PLAYER_WINNINGS;
 
 use cosmwasm_std::entry_point;
+use cosmwasm_std::Addr;
 use cosmwasm_std::Uint128;
 use cosmwasm_std::{to_json_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult};
 // use rand::Rng;
 
-const REQUIRED_BALANCE: Uint128 = Uint128::new(500000);
+const REQUIRED_BALANCE: Uint128 = Uint128::new(50);
 
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn instantiate(
@@ -60,24 +63,47 @@ fn flip_coin(info: MessageInfo, env: Env, deps: DepsMut) -> Result<Response, Con
     };
 
     // Determine the coin flip result
-    let result = if random_num < win_chance {
-        "true"
-    } else {
-        "false"
-    };
+    let result = if random_num < win_chance { true } else { false };
+    let mut tokens_received = Uint128::new(0);
+
+    if result {
+        // Tokens sent ot the contract
+
+        for coin in info.funds.iter() {
+            if coin.denom == "usei" {
+                // Found the 'usei' denom
+                tokens_received = coin.amount;
+
+                break; // Exit the loop as we've found the desired denom
+            }
+        }
+        if (tokens_received > Uint128::new(0)) {
+            // Calculate the winnings
+            let winnings = tokens_received * Uint128::new(2);
+
+            // Set the player's winnings
+            set_player_winnings(deps, info.sender.clone(), winnings)?;
+        }
+    }
 
     Ok(Response::new()
-        .add_attribute("flip_result", result)
+        .add_attribute("flip_result", result.to_string())
         .add_attribute("account_balance", contract_balance.amount)
         .add_attribute("required_balance", REQUIRED_BALANCE)
         .add_attribute("win_chance", win_chance.to_string())
-        .add_attribute("sender", info.sender.to_string()))
+        .add_attribute("sender", info.sender.to_string())
+        .add_attribute("tokens_received", tokens_received.to_string()))
+}
+
+fn set_player_winnings(deps: DepsMut, player: Addr, winnings: Uint128) -> StdResult<()> {
+    PLAYER_WINNINGS.save(deps.storage, &player, &winnings)
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
         QueryMsg::GetOwner {} => query::get_owner(deps),
+        QueryMsg::GetPlayerWinnings { address } => query::get_player_winnings(deps, address),
     }
 }
 
@@ -87,5 +113,10 @@ pub mod query {
     pub fn get_owner(deps: Deps) -> StdResult<Binary> {
         let owner = OWNER.load(deps.storage)?;
         to_json_binary(&GetOwnerResponse { owner })
+    }
+
+    pub fn get_player_winnings(deps: Deps, player: Addr) -> StdResult<Binary> {
+        let winnings = PLAYER_WINNINGS.load(deps.storage, &player)?;
+        to_json_binary(&GetPlayerWinningsResponse { winnings })
     }
 }
